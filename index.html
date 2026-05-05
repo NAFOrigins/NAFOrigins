@@ -96,7 +96,8 @@
         const urlParams = new URLSearchParams(window.location.search);
         const customerName = urlParams.get('name') || "NAF"; 
         const promoCode = urlParams.get('code') || "naf3000";
-        const promoCode = urlParams.get('price') || "22";
+        const rawPrice = urlParams.get('price');
+        const price = rawPrice ? rawPrice + " sr" : "150 sr";
 
         const canvas = document.getElementById('matrixCanvas');
         const ctx = canvas.getContext('2d');
