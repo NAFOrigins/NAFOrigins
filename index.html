@@ -97,8 +97,7 @@
         const promoCode = urlParams.get('code') || "naf3000";
 
         // ⭐ السعر (يتغير من الرابط)
-        const rawPrice = urlParams.get('price');
-        const price = rawPrice ? rawPrice + " SR" : "150 SR";
+        const rawPrice = urlParams.get('price')|| "100sr";
 
         const canvas = document.getElementById('matrixCanvas');
         const ctx = canvas.getContext('2d');
