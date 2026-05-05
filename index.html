@@ -79,15 +79,6 @@
             color: #F9EFDB;
             opacity: 0.8;
         }
-        
-        /* تنسيق إضافي للسعر ليبرز بشكل جميل */
-        .price-tag {
-            font-size: 28px;
-            font-weight: bold;
-            display: block;
-            margin-bottom: 15px;
-            color: #F9EFDB;
-        }
     </style>
 </head>
 <body>
@@ -100,12 +91,10 @@
     </div>
 
     <script>
-        // جلب البيانات من الرابط (URL)
         const urlParams = new URLSearchParams(window.location.search);
         const customerName = urlParams.get('name') || "NAF"; 
         const promoCode = urlParams.get('code') || "naf3000";
-        const rawPrice = urlParams.get('price') || "55"; // المتغير المطلوب
-        
+        const rawPrice = urlParams.get('price') || "35"; // هنا يقرأ السعر من الرابط
 
         const canvas = document.getElementById('matrixCanvas');
         const ctx = canvas.getContext('2d');
@@ -170,12 +159,12 @@
             }
         }
 
-        // التعديل هنا لعرض السعر تلقائياً
+        // التعديل هنا: السعر الآن متغير وليس نص ثابت
         function showFinalCode() {
             messageElement.classList.remove('fade-in-out');
             messageElement.innerHTML = `
-                <div class="price-tag">Special Price: ${rawPrice} SAR</div>
                 <span id="promo-label">Use the code at the cashier:</span>
+                <span id="promo-label" style="font-weight: bold; font-size: 28px; margin: 10px 0;">${rawPrice}sr</span>
                 <div class="stay-forever">${promoCode}</div>
             `;
         }
