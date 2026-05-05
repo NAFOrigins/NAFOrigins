@@ -1,4 +1,16 @@
-<!DOCTYPE html>
+[5:40 PM, 5/5/2026] .: <!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NAF Experience</title>
+    <style>
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: black; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        canvas { display: block; }
+        #overlay { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; color: #F9EFDB; z-index: 10; width: 90%; }
+        #countdown, #message { font-size: 58px; font-weight: bold; text-shadow: 0 0 15px rgba(249, 239, 219, 0.4); display: block; margin: 0; padding: 0; }
+        .white-heart { color: white !important; text-s…
+[6:29 PM, 5/5/2026] .: <!DOCTYPE html>
 <html lang="ar">
 <head>
     <meta charset="UTF-8">
@@ -24,11 +36,10 @@
         <div id="message"></div>
     </div>
     <script>
-        // جلب البيانات - تم حذف رقم 35 تماماً من هنا
         const urlParams = new URLSearchParams(window.location.search);
         const customerName = urlParams.get('name') || "NAF"; 
-        const promoCode = urlParams.get('code') || "CODE";
-        const rawPrice = urlParams.get('price') || ""; // إذا لم يوجد سعر في الرابط سيبقى فارغاً
+        const promoCode = urlParams.get('code') || "NAF";
+        const rawPrice = urlParams.get('price') || ""; 
 
         const canvas = document.getElementById('matrixCanvas');
         const ctx = canvas.getContext('2d');
@@ -78,9 +89,7 @@
 
         function showFinalCode() {
             messageElement.classList.remove('fade-in-out');
-            // عرض السعر فقط إذا كان موجوداً في الرابط
             const priceHTML = rawPrice ? <span id="promo-label" style="font-weight: bold; font-size: 28px; margin: 10px 0;">${rawPrice} SR</span> : "";
-            
             messageElement.innerHTML = `
                 <span id="promo-label">Use the code at the cashier:</span>
                 ${priceHTML}
@@ -88,6 +97,7 @@
             `;
         }
         startSequence();
+        window.addEventListener('resize', () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; });
     </script>
 </body>
 </html>
