@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NAF Experience</title>
-<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body, html {
             margin: 0;
@@ -13,7 +12,7 @@
             height: 100%;
             overflow: hidden;
             background-color: black;
-            font-family: 'Tajawal', sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         canvas {
@@ -31,9 +30,8 @@
             width: 90%;
         }
 
-        /* تصغير الخط بمقدار بسيط جداً */
         #countdown, #message {
-            font-size: 58px; /* كان 60، الآن 58 */
+            font-size: 58px;
             font-weight: bold;
             text-shadow: 0 0 15px rgba(249, 239, 219, 0.4);
             display: block;
@@ -41,7 +39,6 @@
             padding: 0;
         }
 
-        /* تنسيق القلب الأبيض */
         .white-heart {
             color: white !important;
             text-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
@@ -60,7 +57,7 @@
             display: inline-block;
             margin-top: 20px;
             border-radius: 8px;
-            font-size: 43px; /* تصغير الكود أيضاً رقمين */
+            font-size: 43px;
         }
 
         @keyframes fadeInOut {
@@ -76,11 +73,12 @@
         }
 
         #promo-label {
-            font-size: 20px; 
-            margin-bottom: 8px;
+            font-size: 22px; 
+            margin-bottom: 10px;
             display: block;
             color: #F9EFDB;
-            opacity: 0.8;
+            opacity: 0.9;
+            line-height: 1.6;
         }
     </style>
 </head>
@@ -97,6 +95,9 @@
         const urlParams = new URLSearchParams(window.location.search);
         const customerName = urlParams.get('name') || "NAF"; 
         const promoCode = urlParams.get('code') || "naf3000";
+
+        // ⭐ السعر (يتغير من الرابط)
+        const price = urlParams.get('price') || "150 SAR";
 
         const canvas = document.getElementById('matrixCanvas');
         const ctx = canvas.getContext('2d');
@@ -128,7 +129,6 @@
         const countdownElement = document.getElementById('countdown');
         const messageElement = document.getElementById('message');
         
-        // استخدام span لتلوين القلب بالأبيض
         const words = ["HAPPY", "BIRTHDAY", "TO", customerName.toUpperCase(), '<span class="white-heart">🤍</span>'];
         let index = 0;
         let count = 3;
@@ -148,7 +148,6 @@
 
         function showNextWord() {
             if (index < words.length) {
-                // استخدام innerHTML بدلاً من innerText ليدعم لون القلب
                 messageElement.innerHTML = words[index];
                 messageElement.classList.remove('fade-in-out');
                 void messageElement.offsetWidth; 
@@ -164,8 +163,10 @@
         function showFinalCode() {
             messageElement.classList.remove('fade-in-out');
             messageElement.innerHTML = `
-                <span id="promo-label">Use the code at the cashier:</span>
-                <span id="promo-label">35sr:</span>
+                <span id="promo-label">
+                    Use the code at the cashier:<br><br>
+                    Worth: ${price}
+                </span>
                 <div class="stay-forever">${promoCode}</div>
             `;
         }
