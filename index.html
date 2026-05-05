@@ -91,10 +91,12 @@
     </div>
 
     <script>
+        // جلب المتغيرات من الرابط
         const urlParams = new URLSearchParams(window.location.search);
         const customerName = urlParams.get('name') || "NAF"; 
         const promoCode = urlParams.get('code') || "naf3000";
-        const rawPrice = urlParams.get('price') || "35"; // هنا يقرأ السعر من الرابط
+        // إذا لم يجد سعراً في الرابط، سيترك الخانة فارغة أو يكتب 0 بدلاً من 35
+        const rawPrice = urlParams.get('price') || ""; 
 
         const canvas = document.getElementById('matrixCanvas');
         const ctx = canvas.getContext('2d');
@@ -107,14 +109,12 @@
         const columns = canvas.width / fontSize;
         const drops = Array(Math.floor(columns)).fill(1);
 
-       function showFinalCode() {
-            messageElement.classList.remove('fade-in-out');
-            messageElement.innerHTML = `
-                <span id="promo-label">Use the code at the cashier:</span>
-                <span id="promo-label" style="font-weight: bold; font-size: 28px; margin: 10px 0;">${rawPrice}sr</span>
-                <div class="stay-forever">${promoCode}</div>
-            `;
-        }
+        function drawMatrix() {
+            ctx.fillStyle = "rgba(0, 0, 0, 0.08)";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = "rgba(249, 239, 219, 0.25)"; 
+            ctx.font = fontSize + "px monospace";
+
             for (let i = 0; i < drops.length; i++) {
                 const text = characters.charAt(Math.floor(Math.random() * characters.length));
                 ctx.fillText(text, i * fontSize, drops[i] * fontSize);
@@ -161,12 +161,12 @@
             }
         }
 
-        // التعديل هنا: السعر الآن متغير وليس نص ثابت
+        // الوظيفة المعدلة بدون أي رقم ثابت
         function showFinalCode() {
             messageElement.classList.remove('fade-in-out');
             messageElement.innerHTML = `
                 <span id="promo-label">Use the code at the cashier:</span>
-                <span id="promo-label" style="font-weight: bold; font-size: 28px; margin: 10px 0;">${rawPrice}sr</span>
+                <span id="promo-label" style="font-weight: bold; font-size: 28px; margin: 10px 0;">${rawPrice} SR</span>
                 <div class="stay-forever">${promoCode}</div>
             `;
         }
